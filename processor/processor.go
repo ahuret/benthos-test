@@ -15,7 +15,7 @@ func init() {
 		return newTestProcessor(conf, mgr.Logger())
 	}
 
-	err := service.RegisterProcessor("processor_test", testConfigSpec, constructor)
+	err := service.RegisterProcessor("test_processor", testConfigSpec, constructor)
 	if err != nil {
 		panic(err)
 	}
