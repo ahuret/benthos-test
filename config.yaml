@@ -1,0 +1,32 @@
+logger:
+  level: INFO
+  format: logfmt
+  add_timestamp: true
+rate_limit_resources:
+  - label: foobar
+    local:
+      count: 1
+      interval: 1s
+input:
+  test_input:
+    address: 0.0.0.0:9091
+    path: /receive
+pipeline:
+  processors:
+    - log:
+        level: INFO
+        message: before custom processor
+    - test: {}
+    - log:
+        level: INFO
+        message: after custom processor
+    - log:
+        level: INFO
+        message: before rate limit
+    - rate_limit:
+        resource: foobar
+    - log:
+        level: INFO
+        message: after rate limit
+output:
+  test_output: {}
